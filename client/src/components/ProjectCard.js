@@ -102,10 +102,14 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
           <Button size="small">
             <img src="/CommentIcon.png" width="20" height="20"/>
           </Button>
-          <Button vsize="small">Mirror</Button>
-          <Button vsize="small">Like</Button>
+          <Button vsize="small">
+            <img src="/MirrorIcon.png" width="20" height="20"/>
+          </Button>
+          <Button vsize="small">
+            <img src="/LikeIcon.png" width="20" height="20"/> 
+          </Button>
           <Button size="small" onClick={handleCollect}>
-            Donate
+            <img src="/DonateIcon.png" width="20" height="20"/>
           </Button>
         </Stack>
       </CardContent>
