@@ -71,9 +71,6 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
           alignItems="center"
         >
           <Button variant="contained" onClick={handleCollect}>
-            Collect
-          </Button>
-          <Button variant="contained">
             Donate
           </Button>
         </Stack>
