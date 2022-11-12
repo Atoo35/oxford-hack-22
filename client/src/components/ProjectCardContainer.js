@@ -32,7 +32,7 @@ const ProjectCardContainer = () => {
               key={i}
               i={i}
               handle={data.profile.handle}
-              votes={votes[i]}
+              publicationId={data.id}
             />
           </Grid>
         ))}

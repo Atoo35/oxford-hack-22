@@ -593,3 +593,32 @@ fragment ReferenceModuleFields on ReferenceModule {
     degreesOfSeparation
   }
 }`;
+
+export const COLLECT_PUBLICATION = `
+mutation createCollectTypedData($request: CreateCollectRequest!) {
+  createCollectTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        CollectWithSig {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        pubId
+        data
+      }
+    }
+  }
+}`

@@ -31,6 +31,7 @@ import { source } from "./utils/constants";
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
+  const [profile, setProfile] = useState(null)
 
   const getPublications = async () => {
     const request = {
@@ -41,7 +42,7 @@ const Navbar = () => {
     const publications = await explorePublications(request);
     console.log(publications);
   };
-  const postToLens = async (title, description) => {
+  const postToLens = async (title, description, raiseAmt, maxCollectCount) => {
     const metadata_id = uuidv4();
     const ipfsResult = await uploadToIPFS({
       version: "2.0.0",
@@ -65,12 +66,22 @@ const Navbar = () => {
       contentURI:
         "https://" + ipfsResult + ".ipfs.dweb.link/" + metadata_id + ".json",
       collectModule: {
-        freeCollectModule: { followerOnly: true },
+        limitedFeeCollectModule: {
+          collectLimit: `${maxCollectCount}`,
+          amount: {
+            currency: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+            value: `${raiseAmt / maxCollectCount}`,
+          },
+          recipient: profile.ownedBy,
+          referralFee: 0,
+          followerOnly: false
+        }
       },
       referenceModule: {
-        followerOnlyReferenceModule: false,
-      },
+        "followerOnlyReferenceModule": false
+      }
     };
+    console.log("payload", payload);
     console.log("lens profile id", lensProfileId);
     console.log(payload.contentURI);
 
@@ -115,7 +126,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     getPublications();
-  });
+  }, []);
   const [currAcc, setCurrAcc] = useState("");
   const [lensProfileId, setLensProfileId] = useState("");
   const isWalletConnected = async () => {
@@ -163,6 +174,7 @@ const Navbar = () => {
       const profile = await getProfile(accounts[0]);
       console.log("profile", profile);
       if (profile) {
+        setProfile(profile);
         setLensProfileId(profile.id);
       }
     } catch (error) {
@@ -220,7 +232,7 @@ const Navbar = () => {
 
   const style = {
     position: "absolute",
-    top: "50%",
+    top: "40%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
@@ -263,7 +275,7 @@ const Navbar = () => {
         <Card sx={{ padding: 5 }}>
           <Stack spacing={3}>
             <Typography variant="h4" textAlign={"center"}>
-              Add your Project to BlockHub
+              Add your drive to GiveSpace
             </Typography>
             <TextField
               name="title"
@@ -278,12 +290,19 @@ const Navbar = () => {
               onChange={handleChange}
             />
             <TextField
-              name="github"
+              name="raiseAmt"
+              type="number"
               fullWidth
-              placeholder="GitHub URL"
+              placeholder="Raise Amount"
               onChange={handleChange}
             />
-
+            <TextField
+              name="maxCollectCount"
+              type="number"
+              fullWidth
+              placeholder="Max Collect Count"
+              onChange={handleChange}
+            />
             <Stack spacing={2}>
               <Button
                 fullWidth
@@ -291,7 +310,7 @@ const Navbar = () => {
                 color="success"
                 disabled={loading}
                 onClick={() => {
-                  postToLens(formData.title, formData.description);
+                  postToLens(formData.title, formData.description, formData.raiseAmt, formData.maxCollectCount);
                   setLoading(true);
                 }}
               >

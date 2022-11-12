@@ -9,8 +9,44 @@ import {
 import { Stack } from "@mui/system";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { ethers, Contract } from "ethers";
+import { collectPublication } from "./utils/LensProtocol/publication";
+import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
+import { getLensHub } from "./utils/LensProtocol/lens-hub";
 
-const ProjectCard = ({ data, i, handle, votes }) => {
+const ProjectCard = ({ data, i, handle, publicationId }) => {
+  const handleCollect = async () => {
+    const { ethereum } = window;
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    const collectRequest = {
+      publicationId,
+    };
+    const result = await collectPublication(collectRequest);
+    const typedData = result.typedData;
+    console.log('collect: typedData', typedData);
+
+    const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
+    console.log('collect: signature', signature);
+
+    const { v, r, s } = splitSignature(signature);
+    const lensHub = getLensHub();
+    const tx = await lensHub.collectWithSig(
+      {
+        collector: signer.getAddress(),
+        profileId: typedData.value.profileId,
+        pubId: typedData.value.pubId,
+        data: typedData.value.data,
+        sig: {
+          v,
+          r,
+          s,
+          deadline: typedData.value.deadline,
+        },
+      }
+    );
+    console.log('collect: tx hash', tx.hash);
+  };
   return (
     <Card variant="outlined" sx={{ m: 2 }}>
       <CardMedia
@@ -34,13 +70,11 @@ const ProjectCard = ({ data, i, handle, votes }) => {
           direction="row"
           alignItems="center"
         >
-          <Chip
-            label={votes + " votes"}
-            color="success"
-            sx={{ width: 115, fontSize: 20 }}
-          />
-          <Button variant="contained" component={RouterLink} to="/projects">
-            Contribute
+          <Button variant="contained" onClick={handleCollect}>
+            Collect
+          </Button>
+          <Button variant="contained">
+            Donate
           </Button>
         </Stack>
       </CardContent>
