@@ -314,14 +314,11 @@ const Navbar = () => {
       </Modal>
       <Toolbar sx={{ alignItems: "center", justifyContent: "space-between" }}>
         <Box>
-          <Typography variant="h4">BlockHub</Typography>
+          <Typography variant="h4">GiveSpace</Typography>
         </Box>
         <Stack direction="row" spacing={3}>
-          <Button color="inherit" component={RouterLink} to="/leaderboard">
-            Leaderboard
-          </Button>
           <Button color="inherit" component={RouterLink} to="/">
-            Curate
+            Home
           </Button>
           {currAcc == "" ? (
             <Button
@@ -344,7 +341,7 @@ const Navbar = () => {
           ) : null}
           {lensProfileId !== "" ? (
             <Stack alignItems="center" spacing={2} direction="row">
-              <Typography variant="h5">840 Blockos</Typography>
+              <Typography variant="h5">100 $WTR</Typography>
               <IconButton component={RouterLink}>
                 <AccountCircleIcon
                   sx={{ color: "white", width: 30, height: 30 }}
@@ -356,7 +353,7 @@ const Navbar = () => {
                 variant="contained"
                 onClick={() => setOpen(true)}
               >
-                Add Project
+                Add Donation Drive
               </Button>
             </Stack>
           ) : null}

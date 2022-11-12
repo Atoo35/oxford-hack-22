@@ -5,28 +5,6 @@ import { explorePublications } from "./utils/LensProtocol/publication";
 import { source } from './utils/constants'
 const votes = [84, 75, 59, 47, 49, 43, 40];
 const ProjectCardContainer = () => {
-  // const cardData = [
-  //   {
-  //     title: "Linux",
-  //     description: "This is an example of an open source project",
-  //     votes: 232,
-  //   },
-  //   {
-  //     title: "Etherium",
-  //     description: "This is an example of an open source project",
-  //     votes: 322,
-  //   },
-  //   {
-  //     title: "OpenLoops",
-  //     description: "This is an example of an open source project",
-  //     votes: 182,
-  //   },
-  //   {
-  //     title: "OpenMedia",
-  //     description: "This is an example of an open source project",
-  //     votes: 46,
-  //   },
-  // ];
 
   const [cardData, setCardData] = useState([]);
 
