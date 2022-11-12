@@ -23,6 +23,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   createPostTypedData,
   explorePublications,
+  getUserNFTs,
 } from "./utils/LensProtocol/publication";
 import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
@@ -183,6 +184,7 @@ const Navbar = () => {
       getTokenBalance(accounts[0])
       sessionStorage.setItem("address", accounts[0]);
       await signInWithLens(accounts[0]);
+
       const profile = await getProfile(accounts[0]);
       console.log("profile", profile);
       if (profile) {

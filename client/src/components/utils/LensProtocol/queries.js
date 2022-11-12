@@ -622,3 +622,34 @@ mutation createCollectTypedData($request: CreateCollectRequest!) {
     }
   }
 }`
+
+export const GET_USER_NFTS = `
+query nfts($request: NFTsRequest!) {
+  nfts(request: $request) {
+    items {
+      contractName
+      contractAddress
+      symbol
+      tokenId
+      owners {
+        amount
+        address
+      }
+      name
+      description
+      contentURI
+      originalContent {
+        uri
+        metaType
+      }
+      chainId
+      collectionName
+      ercType
+    }
+    pageInfo {
+      prev
+      next
+      totalCount
+    }
+  }
+}`

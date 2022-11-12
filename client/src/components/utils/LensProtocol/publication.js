@@ -1,6 +1,6 @@
 import { apolloClientAuth, apolloClient } from "./apollo";
 import { gql } from '@apollo/client'
-import { CREATE_POST_TYPED_DATA, EXPLORE_PUBLICATIONS, COLLECT_PUBLICATION } from './queries'
+import { CREATE_POST_TYPED_DATA, EXPLORE_PUBLICATIONS, COLLECT_PUBLICATION, GET_USER_NFTS } from './queries'
 
 
 export const createPostTypedData = (createPostTypedDataRequest) => {
@@ -26,6 +26,15 @@ export const collectPublication = (collectPublicationRequest) => {
         mutation: gql(COLLECT_PUBLICATION),
         variables: {
             request: collectPublicationRequest,
+        },
+    });
+}
+
+export const getUserNFTs = (NFTsRequest) => {
+    return apolloClientAuth.query({
+        query: gql(GET_USER_NFTS),
+        variables: {
+            request: NFTsRequest,
         },
     });
 }
