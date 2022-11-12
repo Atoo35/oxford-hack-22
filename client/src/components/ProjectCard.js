@@ -63,6 +63,9 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
         sx={{ objectFit: "cover" }}
       />
       <CardContent>
+        <Typography>
+          NGO Name
+        </Typography>
         <Typography color="text.secondary" variant="subtitle2">
           {handle}
         </Typography>
@@ -77,7 +80,12 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
           direction="row"
           alignItems="center"
         >
-          <Button variant="contained" onClick={handleCollect}>
+          <Button size="small">
+            <img src="/CommentIcon.png" width="20" height="20"/>
+          </Button>
+          <Button vsize="small">Mirror</Button>
+          <Button vsize="small">Like</Button>
+          <Button size="small" onClick={handleCollect}>
             Donate
           </Button>
         </Stack>
