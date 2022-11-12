@@ -28,10 +28,21 @@ import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
 import { pollUntilIndexed } from "./utils/LensProtocol/transactions";
 import { source } from "./utils/constants";
+import { getWaterContract } from "./utils/common";
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
   const [profile, setProfile] = useState(null)
+  const [tokenBalance, setTokenBalace] = useState(0)
+
+
+
+  const getTokenBalance = async (address) => {
+    const contract = getWaterContract();
+    const res = await contract.balanceOf(address)
+    const ethValue = ethers.utils.formatEther(res);
+    setTokenBalace(ethValue)
+  }
 
   const getPublications = async () => {
     const request = {
@@ -169,6 +180,7 @@ const Navbar = () => {
       });
       // console.log("Connected", accounts[0]);
       setCurrAcc(accounts[0]);
+      getTokenBalance(accounts[0])
       sessionStorage.setItem("address", accounts[0]);
       await signInWithLens(accounts[0]);
       const profile = await getProfile(accounts[0]);
@@ -360,7 +372,7 @@ const Navbar = () => {
           ) : null}
           {lensProfileId !== "" ? (
             <Stack alignItems="center" spacing={2} direction="row">
-              <Typography variant="h5">100 $WTR</Typography>
+              <Typography variant="h5">{tokenBalance || 0} $WTR</Typography>
               <IconButton component={RouterLink}>
                 <AccountCircleIcon
                   sx={{ color: "white", width: 30, height: 30 }}

@@ -13,12 +13,18 @@ import { ethers, Contract } from "ethers";
 import { collectPublication } from "./utils/LensProtocol/publication";
 import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
+import { getSigner, getWaterContract } from "./utils/common";
 
 const ProjectCard = ({ data, i, handle, publicationId }) => {
+
+  const mintWTRTokens = async () => {
+    const contract = getWaterContract();
+    const res = await contract.mint(getSigner().getAddress(), ethers.utils.parseUnits("1", 18));
+    alert(res)
+  }
+
   const handleCollect = async () => {
-    const { ethereum } = window;
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = provider.getSigner();
+    const signer = getSigner();
     const collectRequest = {
       publicationId,
     };
@@ -43,7 +49,8 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
           s,
           deadline: typedData.value.deadline,
         },
-      }
+      },
+      { gasLimit: 1000000 }
     );
     console.log('collect: tx hash', tx.hash);
   };
