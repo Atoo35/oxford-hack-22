@@ -30,6 +30,41 @@ import { getLensHub } from "./utils/LensProtocol/lens-hub";
 import { pollUntilIndexed } from "./utils/LensProtocol/transactions";
 import { source } from "./utils/constants";
 import { getWaterContract } from "./utils/common";
+
+
+
+import { css } from '@emotion/css'
+
+export function SearchInput({
+  placeholder, onChange, value, onKeyDown = null
+}) {
+  return (
+    <input
+      placeholder={placeholder}
+      onChange={onChange}
+      value={value}
+      className={inputStyle}
+      onKeyDown={onKeyDown}
+    />
+  )
+}
+
+const inputStyle = css`
+  outline: none;
+  border: none;
+  padding: 15px 20px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: 2px solid rgba(0, 0, 0, .04);
+  transition: all .4s;
+  width: 300px;
+  background-color: #fafafa;
+  &:focus {
+    background-color: white;
+    border: 2px solid rgba(0, 0, 0, .1);
+  }
+`
+
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
@@ -348,6 +383,9 @@ const Navbar = () => {
       <Toolbar sx={{ alignItems: "center", justifyContent: "space-between" }}>
         <Box>
           <Typography variant="h4">GiveSpace</Typography>
+        </Box>
+        <Box>
+          
         </Box>
         <Stack direction="row" spacing={3}>
           <Button color="inherit" component={RouterLink} to="/">
