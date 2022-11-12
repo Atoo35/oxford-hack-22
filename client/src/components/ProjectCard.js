@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
 import { ethers, Contract } from "ethers";
 import { collectPublication } from "./utils/LensProtocol/publication";
 import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
@@ -17,9 +16,9 @@ import { getSigner, getWaterContract } from "./utils/common";
 
 const ProjectCard = ({ data, i, handle, publicationId }) => {
 
-  const mintWTRTokens = async () => {
+  const mintWTRTokens = async (tokenAmount) => {
     const contract = getWaterContract();
-    const res = await contract.mint(getSigner().getAddress(), ethers.utils.parseUnits("1", 18));
+    const res = await contract.mint(getSigner().getAddress(), ethers.utils.parseUnits(tokenAmount.toString(), 18));
     alert(res)
   }
 

@@ -1,3 +1,5 @@
 export const source = 'oxford-lfg'
 
 export const WATER_CONTRACT_ADDRESS = "0xa3f0229303874b24cac252508BfB5CC19Ce82AD4"
+
+export const SEED_CONTRACT_ADDRESS = "0xA53c3Af634f3bf736FA62d9943720fb93205e42F"
