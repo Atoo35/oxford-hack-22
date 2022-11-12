@@ -27,7 +27,7 @@ import {
 import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
 import { pollUntilIndexed } from "./utils/LensProtocol/transactions";
-const source = "blockerino1";
+const source = "oxford-lfg";
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
@@ -57,7 +57,7 @@ const Navbar = () => {
       attributes: [],
       tags: [],
       media: [],
-      appId: "blockerino1",
+      appId: source,
     });
     console.log(ipfsResult);
     const payload = {
