@@ -2,7 +2,7 @@ import { Card, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { explorePublications } from "./utils/LensProtocol/publication";
-const source = "blockerino1";
+import { source } from "./utils/constants";
 const votes = [84, 75, 59, 47, 49, 43, 40];
 const ProjectCardContainer = () => {
   // const cardData = [

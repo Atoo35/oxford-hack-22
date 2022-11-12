@@ -27,10 +27,11 @@ import {
 import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
 import { pollUntilIndexed } from "./utils/LensProtocol/transactions";
-const source = "oxford-lfg";
+import { source } from "./utils/constants";
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
+  const [profile, setProfile] = useState(null);
 
   const getPublications = async () => {
     const request = {
@@ -41,7 +42,8 @@ const Navbar = () => {
     const publications = await explorePublications(request);
     console.log(publications);
   };
-  const postToLens = async (title, description) => {
+  const postToLens = async (title, description, value) => {
+    console.log(profile)
     const metadata_id = uuidv4();
     const ipfsResult = await uploadToIPFS({
       version: "2.0.0",
@@ -65,12 +67,13 @@ const Navbar = () => {
       contentURI:
         "https://" + ipfsResult + ".ipfs.dweb.link/" + metadata_id + ".json",
       collectModule: {
-        freeCollectModule: { followerOnly: true },
+        revertCollectModule: true
       },
       referenceModule: {
-        followerOnlyReferenceModule: false,
-      },
+        followerOnlyReferenceModule: false
+      }
     };
+    console.log("payload", payload);
     console.log("lens profile id", lensProfileId);
     console.log(payload.contentURI);
 
@@ -115,7 +118,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     getPublications();
-  });
+  }, []);
   const [currAcc, setCurrAcc] = useState("");
   const [lensProfileId, setLensProfileId] = useState("");
   const isWalletConnected = async () => {
@@ -163,6 +166,7 @@ const Navbar = () => {
       const profile = await getProfile(accounts[0]);
       console.log("profile", profile);
       if (profile) {
+        setProfile(profile)
         setLensProfileId(profile.id);
       }
     } catch (error) {
@@ -291,7 +295,7 @@ const Navbar = () => {
                 color="success"
                 disabled={loading}
                 onClick={() => {
-                  postToLens(formData.title, formData.description);
+                  postToLens(formData.title, formData.description, 10);
                   setLoading(true);
                 }}
               >
@@ -314,14 +318,11 @@ const Navbar = () => {
       </Modal>
       <Toolbar sx={{ alignItems: "center", justifyContent: "space-between" }}>
         <Box>
-          <Typography variant="h4">BlockHub</Typography>
+          <Typography variant="h4">GiveSpace</Typography>
         </Box>
         <Stack direction="row" spacing={3}>
-          <Button color="inherit" component={RouterLink} to="/leaderboard">
-            Leaderboard
-          </Button>
           <Button color="inherit" component={RouterLink} to="/">
-            Curate
+            Home
           </Button>
           {currAcc == "" ? (
             <Button
@@ -344,7 +345,7 @@ const Navbar = () => {
           ) : null}
           {lensProfileId !== "" ? (
             <Stack alignItems="center" spacing={2} direction="row">
-              <Typography variant="h5">840 Blockos</Typography>
+              <Typography variant="h5">100 $Water</Typography>
               <IconButton component={RouterLink}>
                 <AccountCircleIcon
                   sx={{ color: "white", width: 30, height: 30 }}
@@ -356,7 +357,7 @@ const Navbar = () => {
                 variant="contained"
                 onClick={() => setOpen(true)}
               >
-                Add Project
+                Add Donation Drive
               </Button>
             </Stack>
           ) : null}

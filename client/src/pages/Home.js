@@ -13,7 +13,7 @@ const Home = () => {
             Welcome to GiveSpace.
           </Typography>
           <Typography variant="h6" color="text.secondary">
-            Curate projects and evaluate your contributions here at BlockHub.
+            Donate to NGOs and grow your tree here at GiveSpace.
           </Typography>
         </Box>
         <ProjectCardContainer />
