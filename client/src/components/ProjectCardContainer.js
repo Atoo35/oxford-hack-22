@@ -1,10 +1,17 @@
 import { Card, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
-import { explorePublications } from "./utils/LensProtocol/publication";
+import { explorePublications, getUserNFTs } from "./utils/LensProtocol/publication";
 import { source } from './utils/constants'
+import { getSigner } from "./utils/common";
 const ProjectCardContainer = () => {
 
+  // const request = {
+  //   ownerAddress: accounts[0],
+  //   chainIds: [80001],
+  // }
+  // const result = await getUserNFTs(request)
+  // console.log(result)
   const [cardData, setCardData] = useState([]);
 
   const getPublications = async () => {
@@ -16,6 +23,8 @@ const ProjectCardContainer = () => {
     const publications = await explorePublications(request);
     setCardData(publications.data.explorePublications.items);
   };
+
+
 
   useEffect(() => {
     getPublications();

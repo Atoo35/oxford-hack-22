@@ -23,20 +23,39 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
     alert(res)
   }
 
+  const sendTx = async (transaction) => {
+    const signer = getSigner();
+    return signer.sendTransaction(transaction);
+  }
+  const pleaseWork = async () => {
+
+    const tx = await sendTx({
+      to: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+      from: "0x7935468Da117590bA75d8EfD180cC5594aeC1582",
+      data: "0x095ea7b3000000000000000000000000fcda2801a31ba70dfe542793020a934f880d54ab0000000000000000000000000000000000000000000000008ac7230489e80000",
+    });
+
+    console.log('approve module: txHash', tx.hash);
+
+    await tx.wait();
+
+    console.log('approve module: txHash mined', tx.hash);
+  }
+
   const handleCollect = async () => {
     const signer = getSigner();
     const collectRequest = {
       publicationId,
     };
     const result = await collectPublication(collectRequest);
-    const typedData = result.typedData;
+    const typedData = result.data.createCollectTypedData.typedData;
     console.log('collect: typedData', typedData);
 
-    const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
+    const signature = await signedTypeData(signer, typedData.domain, typedData.types, typedData.value);
     console.log('collect: signature', signature);
 
     const { v, r, s } = splitSignature(signature);
-    const lensHub = getLensHub();
+    const lensHub = getLensHub(signer);
     const tx = await lensHub.collectWithSig(
       {
         collector: signer.getAddress(),
