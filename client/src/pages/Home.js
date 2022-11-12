@@ -10,10 +10,10 @@ const Home = () => {
       <Container maxWidth="md">
         <Box sx={{ mt: 5, textAlign: "center" }}>
           <Typography variant="h2" gutterBottom>
-            Welcome to GiveSpace.
+            Welcome to BlockHub.
           </Typography>
           <Typography variant="h6" color="text.secondary">
-            Donate to NGOs and grow your tree here at GiveSpace.
+            Curate projects and evaluate your contributions here at BlockHub.
           </Typography>
         </Box>
         <ProjectCardContainer />
