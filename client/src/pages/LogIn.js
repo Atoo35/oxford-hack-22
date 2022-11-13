@@ -43,7 +43,7 @@ const LogIn = () => {
               </ListItemIcon>
               <ListItemText>
                 <Typography variant="h5">
-                  Curate your favourite open-source projects
+                  Find and donate to meaningful charities
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -53,7 +53,7 @@ const LogIn = () => {
               </ListItemIcon>
               <ListItemText>
                 <Typography variant="h5">
-                  Earn Blockos by contributing to highly valued projects
+                  Earn WTR to water your seed and see it grow
                 </Typography>
               </ListItemText>
             </ListItem>
