@@ -68,7 +68,7 @@ const inputStyle = css`
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
-  const [profile, setProfile] = useState(null)
+  const [profile, setProfile] = useState(false)
   const [tokenBalance, setTokenBalace] = useState(0)
 
 
@@ -425,7 +425,7 @@ const Navbar = () => {
           {lensProfileId !== "" ? (
             <Stack alignItems="center" spacing={2} direction="row">
               <Typography variant="h5">{tokenBalance || 0} $WTR</Typography>
-              <IconButton component={RouterLink}>
+              <IconButton component={RouterLink} to = "/profile">
                 <AccountCircleIcon
                   sx={{ color: "white", width: 30, height: 30 }}
                 />
