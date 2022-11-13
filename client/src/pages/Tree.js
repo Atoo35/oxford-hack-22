@@ -29,6 +29,20 @@ const Tree = ({handle}) => {
   useEffect(()=>{
     getNFTS()
   })
+
+
+  const getSeedNFT = async (address) => {
+    const contract = getSeedContract();
+    const res = await contract.balanceOf(address);
+    const tokenDat = await contract.addressToTokenIds(address)
+    const level = await contract.getLevels(parseInt(tokenDat))
+    console.log('balance', res.toString())
+    console.log('tokenId', parseInt(tokenDat))
+    console.log('level', parseInt(level.level))
+    console.log('timeToUpgrade', parseInt(level.timeToUpgrade))
+  }
+
+
   const handleCollect = async () => {
     const signer = getSigner();
     const collectRequest = {
@@ -73,7 +87,7 @@ const Tree = ({handle}) => {
         <Stack sx={{ mt: 5, textAlign: "center" }}>
             <img src="Tree1.jpg" width="100" height="400" class="center"/>
             <Typography>
-            Level: 
+            Level: {level}
             </Typography>
             {/* const TreeStats = number(1) */}
         </Stack>
