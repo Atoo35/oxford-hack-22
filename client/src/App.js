@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
+import Tree from "./pages/Tree";
 
 function App () {
   return (
@@ -21,6 +22,7 @@ function App () {
         <Route path="login" element={<LogIn />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="tree" element={<Tree />}/>
       </Routes>
     </Box>
   );

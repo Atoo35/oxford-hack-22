@@ -413,6 +413,9 @@ const Navbar = () => {
               Connect Wallet
             </Button>
           ) : null}
+          <Button color="inherit" component={RouterLink} to="/tree">
+              tree
+          </Button>
           {currAcc !== "" && lensProfileId == "" ? (
             <Button
               onClick={() => setConnectModal(true)}
