@@ -1,11 +1,14 @@
 import { ethers, Contract } from "ethers";
-import { WATER_CONTRACT_ADDRESS } from "./constants";
+import { SEED_CONTRACT_ADDRESS, WATER_CONTRACT_ADDRESS } from "./constants";
 import waterABI from './waterABI.json'
+import seedABI from './seedABI.json'
+export const getSeedContract = () => (
+  new Contract(SEED_CONTRACT_ADDRESS, seedABI, getSigner())
+)
 
-export const getWaterContract = () => {
-  const contract = new Contract(WATER_CONTRACT_ADDRESS, waterABI, getSigner())
-  return contract;
-}
+export const getWaterContract = () => (
+  new Contract(WATER_CONTRACT_ADDRESS, waterABI, getSigner())
+)
 
 export const getSigner = () => {
   const { ethereum } = window;

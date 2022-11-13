@@ -13,7 +13,7 @@ import {
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
-import { ethers, Contract } from "ethers";
+import { ethers, Contract, BigNumber } from "ethers";
 import { generateChallenge, authenticate } from "./utils/LensProtocol/login";
 import { createProfile, getProfile } from "./utils/LensProtocol/profile";
 import { uploadToIPFS } from "./utils/ipfs";
@@ -29,13 +29,13 @@ import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
 import { pollUntilIndexed } from "./utils/LensProtocol/transactions";
 import { source } from "./utils/constants";
-import { getWaterContract } from "./utils/common";
+import { getSeedContract, getWaterContract } from "./utils/common";
 
 
 
 import { css } from '@emotion/css'
 
-export function SearchInput({
+export function SearchInput ({
   placeholder, onChange, value, onKeyDown = null
 }) {
   return (
@@ -72,6 +72,17 @@ const Navbar = () => {
   const [tokenBalance, setTokenBalace] = useState(0)
 
 
+
+  const getSeedNFT = async (address) => {
+    const contract = getSeedContract();
+    const res = await contract.balanceOf(address);
+    const tokenDat = await contract.addressToTokenIds(address)
+    const level = await contract.getLevels(parseInt(tokenDat))
+    console.log('balance', res.toString())
+    console.log('tokenId', parseInt(tokenDat))
+    console.log('level', parseInt(level.level))
+    console.log('timeToUpgrade', parseInt(level.timeToUpgrade))
+  }
 
   const getTokenBalance = async (address) => {
     const contract = getWaterContract();
@@ -214,9 +225,10 @@ const Navbar = () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      // console.log("Connected", accounts[0]);
+      console.log("Connected", accounts[0]);
       setCurrAcc(accounts[0]);
       getTokenBalance(accounts[0])
+      getSeedNFT(accounts[0])
       sessionStorage.setItem("address", accounts[0]);
       await signInWithLens(accounts[0]);
 
@@ -385,7 +397,7 @@ const Navbar = () => {
           <Typography variant="h4">GiveSpace</Typography>
         </Box>
         <Box>
-          
+
         </Box>
         <Stack direction="row" spacing={3}>
           <Button color="inherit" component={RouterLink} to="/">
