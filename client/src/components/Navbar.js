@@ -414,7 +414,7 @@ const Navbar = () => {
             </Button>
           ) : null}
           <Button color="inherit" component={RouterLink} to="/tree">
-              tree
+              Tree
           </Button>
           {currAcc !== "" && lensProfileId == "" ? (
             <Button
