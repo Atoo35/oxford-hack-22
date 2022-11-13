@@ -6,7 +6,7 @@ import {
     Chip,
     Typography,
   } from "@mui/material";import { Box, Container, Stack } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {getUserNFTs} from '../components/utils/LensProtocol/publication'
 import { ethers, Contract } from "ethers";
 import { collectPublication } from "../components/utils/LensProtocol/publication";
@@ -15,7 +15,8 @@ import { getLensHub } from "../components/utils/LensProtocol/lens-hub";
 import { getSigner, getWaterContract } from "../components/utils/common";
 
 const Tree = ({handle}) => {
-// const Tree = ({ data, i, handle, publicationId }) => {
+    const [level,  setLevel] =useState(0)
+    const [timetoupgrade, setTimetoupgrade] =useState(0)
   const getNFTS= async()=>{
     const signer = getSigner();
     const address = await signer.getAddress()
@@ -28,6 +29,8 @@ const Tree = ({handle}) => {
   }
   useEffect(()=>{
     getNFTS()
+    const signer = getSigner()
+    getSeedNFT(signer.getAddress())
   })
 
 
@@ -40,6 +43,8 @@ const Tree = ({handle}) => {
     console.log('tokenId', parseInt(tokenDat))
     console.log('level', parseInt(level.level))
     console.log('timeToUpgrade', parseInt(level.timeToUpgrade))
+    setLevel(parseInt(level.level))
+    setTimetoupgrade(parseInt(timeToUpgrade.timeToUpgrade))
   }
 
 
@@ -89,7 +94,9 @@ const Tree = ({handle}) => {
             <Typography>
             Level: {level}
             </Typography>
-            {/* const TreeStats = number(1) */}
+            <Typography>
+                Time to upgrade: {timetoupgrade}
+            </Typography>
         </Stack>
       </Container>
     </Box>
