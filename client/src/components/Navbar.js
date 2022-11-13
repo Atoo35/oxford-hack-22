@@ -68,7 +68,7 @@ const inputStyle = css`
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
-  const [profile, setProfile] = useState(false)
+  const [profile, setProfile] = useState(null)
   const [tokenBalance, setTokenBalace] = useState(0)
 
 
