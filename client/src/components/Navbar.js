@@ -403,7 +403,7 @@ const Navbar = () => {
           <Button color="inherit" component={RouterLink} to="/">
             Home
           </Button>
-          {currAcc == "" ? (
+          {currAcc === "" ? (
             <Button
               onClick={connectWallet}
               color="success"
@@ -416,7 +416,7 @@ const Navbar = () => {
           <Button color="inherit" component={RouterLink} to="/tree">
               Tree
           </Button>
-          {currAcc !== "" && lensProfileId == "" ? (
+          {currAcc !== "" && lensProfileId === "" ? (
             <Button
               onClick={() => setConnectModal(true)}
               color="success"
