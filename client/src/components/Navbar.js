@@ -68,7 +68,7 @@ const inputStyle = css`
 const Navbar = () => {
   const [connectModal, setConnectModal] = useState(false);
   const [lensHandle, setLensHandle] = useState("");
-  const [profile, setProfile] = useState(false)
+  const [profile, setProfile] = useState(null)
   const [tokenBalance, setTokenBalace] = useState(0)
 
 
@@ -403,7 +403,7 @@ const Navbar = () => {
           <Button color="inherit" component={RouterLink} to="/">
             Home
           </Button>
-          {currAcc == "" ? (
+          {currAcc === "" ? (
             <Button
               onClick={connectWallet}
               color="success"
@@ -416,7 +416,7 @@ const Navbar = () => {
           <Button color="inherit" component={RouterLink} to="/tree">
               Tree
           </Button>
-          {currAcc !== "" && lensProfileId == "" ? (
+          {currAcc !== "" && lensProfileId === "" ? (
             <Button
               onClick={() => setConnectModal(true)}
               color="success"
