@@ -12,7 +12,7 @@ import { ethers, Contract } from "ethers";
 import { collectPublication } from "./utils/LensProtocol/publication";
 import { signedTypeData, splitSignature } from "./utils/LensProtocol/utils";
 import { getLensHub } from "./utils/LensProtocol/lens-hub";
-import { getSigner, getWaterContract } from "./utils/common";
+import { getSeedContract, getSigner, getWaterContract } from "./utils/common";
 
 const ProjectCard = ({ data, i, handle, publicationId }) => {
 
@@ -71,6 +71,15 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
       { gasLimit: 1000000 }
     );
     console.log('collect: tx hash', tx.hash);
+    const contract = getSeedContract();
+    const address = await signer.getAddress()
+    const res = await contract.balanceOf(address);
+    console.log('balance', res.toString())
+    const waterContract = getWaterContract();
+    await waterContract.mint(address, ethers.utils.parseUnits("10", 18));
+    if (res.toString() === "0") {
+      await contract.mint()
+    }
   };
   return (
     <Card variant="outlined" sx={{ m: 2 }}>
@@ -98,16 +107,16 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
           alignItems="center"
         >
           <Button size="small">
-            <img src="/CommentIcon.png" width="20" height="20"/>
+            <img src="/CommentIcon.png" width="20" height="20" />
           </Button>
           <Button vsize="small">
-            <img src="/MirrorIcon.png" width="20" height="20"/>
+            <img src="/MirrorIcon.png" width="20" height="20" />
           </Button>
           <Button vsize="small">
-            <img src="/LikeIcon.png" width="20" height="20"/> 
+            <img src="/LikeIcon.png" width="20" height="20" />
           </Button>
           <Button size="small" onClick={handleCollect}>
-            <img src="/DonateIcon.png" width="20" height="20"/>
+            <img src="/DonateIcon.png" width="20" height="20" />
           </Button>
         </Stack>
       </CardContent>
