@@ -427,7 +427,7 @@ const Navbar = () => {
           ) : null}
           {lensProfileId !== "" ? (
             <Stack alignItems="center" spacing={2} direction="row">
-              <Typography variant="h5">{tokenBalance || 0} $WTR</Typography>
+              <Typography variant="h5">{tokenBalance || 0} WTR</Typography>
               <IconButton component={RouterLink} to = "/profile">
                 <AccountCircleIcon
                   sx={{ color: "white", width: 30, height: 30 }}
