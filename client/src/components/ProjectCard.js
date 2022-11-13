@@ -90,7 +90,6 @@ const ProjectCard = ({ data, i, handle, publicationId }) => {
         <Typography variant="h5" gutterBottom>
           {data.content}
         </Typography>
-
         <Typography>{data.description}</Typography>
         <Stack
           mt={3}
