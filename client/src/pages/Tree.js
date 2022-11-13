@@ -65,7 +65,11 @@ const Tree = () => {
     setLevel(parseInt(level.level))
     setTimetoupgrade(parseInt(level.timeToUpgrade))
     if (parseInt(level.level) == 0) {
-      setImageshown("Tree1.png")
+      if (parseInt(level.timeToUpgrade) == 0) {
+        setImageshown("Tree0.png")
+      } else {
+        setImageshown("Tree1.png")
+      }
     } else if (parseInt(level.level) == 1) {
       setImageshown("Tree2.png")
     } else if (parseInt(level.level) == 2) {
