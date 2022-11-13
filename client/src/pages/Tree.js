@@ -66,11 +66,15 @@ const Tree = () => {
     setTimetoupgrade(parseInt(level.timeToUpgrade))
     if (parseInt(level.level) == 0) {
       alert("hdhdh")
-      setImageshown("Tree1.jpg")
+      setImageshown("Tree1.png")
     } else if (parseInt(level.level) == 1) {
-      setImageshown("Tree2.jpg")
+      setImageshown("Tree2.png")
+    }else if (parseInt(level.level) == 2) {
+      setImageshown("Tree3.png")
+    }else if (parseInt(level.level) == 3) {
+      setImageshown("Tree4.png")
     } else {
-      setImageshown("Tree3.jpg")
+      setImageshown("Tree5.png")
     }
   }
 
@@ -86,7 +90,7 @@ const Tree = () => {
       </Container>
       <Container maxWidth="md">
         <Stack sx={{ mt: 5, textAlign: "center" }}>
-          <img src={imageshown} width="100" height="400" className="center" />
+          <img src={imageshown} width="800" height="350" className="center" />
           <Typography>
             Level: {level}
           </Typography>
